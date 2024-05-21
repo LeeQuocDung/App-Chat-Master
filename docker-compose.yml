@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vue-app-master
+    ports:
+      - 8080:80
+    networks:
+      - my-app
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-app-master
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - app
+    networks:
+      - my-app
+networks:
+  my-app:
+    driver: bridge

@@ -1,0 +1,31 @@
+<template>
+  <Register v-if="showRegisterForm">
+    <p class="small fw-bold">Bạn đã là thành viên chưa? <span class="text-success fake-link" @click="showRegisterForm = !showRegisterForm"> Đăng nhập </span> Nhé !</p>
+  </Register>
+  <Login v-else @toChatRoom="changeChatRoomRoute">
+    <p class="small fw-bold">Chưa có tài khoản? <span class="text-success fake-link" @click="showRegisterForm = !showRegisterForm"> Đăng ký </span> Nhé !</p>
+  </Login>
+</template>
+
+<script>
+import Register from "../components/Register";
+import Login from "../components/Login";
+import { ref } from "@vue/reactivity";
+import { useRouter } from "vue-router";
+export default {
+  components: {
+    Register,
+    Login,
+  },
+  setup() {
+    let showRegisterForm = ref(false);
+    let router = useRouter();
+    let changeChatRoomRoute = () => {
+      router.push({ name: "chat-room" });
+    };
+    return { showRegisterForm, changeChatRoomRoute };
+  },
+};
+</script>
+
+<style lang="scss" scoped></style>
